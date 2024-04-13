@@ -1,38 +1,894 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.WeatherApp{
+  width: 100%;
+  height: 150vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Sidebar{
+  width: 30%;
+  height: 100vh;
+  padding: 1% 3% 3% 3%;
+  position: fixed;
+  z-index: 99;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
+  background-color: rgba(30, 33, 58, 1);
+  transition: transform 0.2s ease-in-out;
+  transform: translateX(-100%);
+}
+.Sidebar.open {
+  transform: translateX(0);
+}
+.HeaderCloseDiv{
+  width: 100%;
+  padding-bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.HeaderCloseDiv button{
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
+  border-style: none;
+  cursor: pointer;
+  color: rgba(231, 231, 235, 1);
+  background-color: rgba(30, 33, 58, 1);
+}
+.SidebarSearch{
+  width: 100%;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.SidebarSearch span{
+  padding-left: 2%;
+  position: absolute;
+  color: rgba(97, 100, 117, 1);
+}
+.SidebarSearch input{
+  width: 65%;
+  height: 100%;
+  padding-left: 10%;
+  padding-right: 2%;
+  color: rgba(231, 231, 235, 1);
+  background-color: transparent;
+  border: 1px solid rgba(231, 231, 235, 1);
+  border-radius: 0%;
+}
+.SidebarSearch button{
+  width: 31%;
+  height: 35px;
+  border-style: none;
+  color: rgba(231, 231, 235, 1);
+  background-color: rgba(60, 71, 233, 1);
+}
+.Aside{
+  width: 30%;
+  height: 100%;
+  padding-bottom: 2.4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.WeatherHeader{
+  width: 100%;
+  padding: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.WeatherHeaderSearchButton{
+  width: 40%;
+  height: 30px;
+  color: #ffffff;
+  background: rgba(110, 112, 122, 1);
+  border-style: none;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.WeatherHeaderLocationButton{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  border-radius: 15px;
+  color: #ffffff;
+  border-style: none;
+  cursor: pointer;
+  background-color: rgba(110, 112, 122, 1);
 }
-
-.App-link {
-  color: #61dafb;
+.CloudDynamicImage{
+  width: 100%;
+  padding: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./weather-app-master/Cloud-background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.CloudDynamicImage img{
+  width: 70%;
+}
+.TemperatureNumber{
+  font-size: 144px;
+  font-weight: 500;
+  line-height: 169.06px;
+  color: white;  
+}
+.CelciusFarenhite{
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56.35px;
+  color: rgba(160, 159, 177, 1);
+}
+.CloudType{
+  padding: 17%;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 120px;
+  text-align: center;
+  color: rgba(160, 159, 177, 1);
+}
+.Data{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  color: rgba(160, 159, 177, 1);
+}
+.LocationIcon{
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 64px;
+  text-align: center;  
+  color: rgba(160, 159, 177, 1);
+}
+.Article{
+  width: 70%;
+  height: 100%;
+  padding: 2.5% 10% 5% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(16, 14, 29, 1);
+}
+.TemperatureHeader{
+  width: 100%;
+  padding-bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.Celcius{
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+  color: rgba(17, 14, 60, 1);
+  background-color: #ffffff;
+  border-style: none;
+}
+.Farenhite{
+  width: 30px;
+  height: 30px;
+  margin-left: 2%;
+  border-radius: 15px;
+  cursor: pointer;
+  color: rgba(231, 231, 235, 1);
+  background-color: rgba(160, 159, 177, 1);
+  border-style: none;
+}
+.Container{
+  width: 100%;
+  height: 130px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.Wrapper{
+  width: 17%;
+  height: 100%;
+  padding: 2% 1% 1% 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.Wrapper img{
+  width: 50%;
+}
+.Wrapper h2{
+  padding-bottom: 3%;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  text-align: center;
+  color: rgba(231, 231, 235, 1);
+}
+.MaxMinTemperature{
+  width: 100%;
+  padding: 20% 5% 10% 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.MaxTemperature{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  color: rgba(231, 231, 235, 1);  
+}
+.MinTemperature{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  color: rgba(160, 159, 177, 1);  
+}
+.HighlightHeading{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.HighlightHeading h1{
+  padding-top: 5%;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 80px;
+  text-align: left;
+  color: rgba(231, 231, 235, 1);  
+}
+.WindStatusHumidity{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.WindStatus{
+  width: 47%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.WindStatus h4{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  color: rgba(231, 231, 235, 1);  
+}
+.WindStatus p{
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 115px;
+  color: rgba(231, 231, 235, 1);
+}
+.WindStatusMPH{
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42.26px;
+}
+.WindStatusBottom{
+  width: 100%;
+  padding-left: 30%;
+  padding-right: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.WindStatusIcon{
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.3);
+  rotate: 180deg;
+  border-radius: 15px;
+}
+.WindStatusBottom h5{
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 43.5px;
+  text-align: left;
+  color: rgba(231, 231, 235, 1);  
+}
+.Humidity{
+  width: 47%;
+  padding: 5% 5% 3% 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.Humidity h4{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  text-align: center;
+ color: rgba(231, 231, 235, 1);  
+}
+.Humidity p{
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 115px;
+  color: rgba(231, 231, 235, 1);  
+}
+.Humidity p span{
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 42.26px;
+  color: rgba(231, 231, 235, 1);  
+}
+.HumidityPercentContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.HumidityPercentContainer ul{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+.HumidityPercentContainer ul li{
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 24px;
+  color: rgba(160, 159, 177, 1);
+}
+.HumidityPercentBottom{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.HumidityPercentBottom p{
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+  color: rgba(160, 159, 177, 1);  
+}
+.HumidityPercentRange{
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(231, 231, 235, 1);
+}
+.HumidityPercentRangeDiv{
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(255, 236, 101, 1);
+}
+.VisibilityAirPressure{
+  width: 100%;
+  margin-top: 6%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.Visibility{
+  width: 47%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.Visibility h4{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  color: rgba(231, 231, 235, 1);  
+}
+.Visibility p{
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 100px;
+  color: rgba(231, 231, 235, 1);  
+}
+.Visibility span{
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42.26px;
+  color: rgba(231, 231, 235, 1);  
+}
+.AirPressure{
+  width: 47%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgba(30, 33, 58, 1);
+}
+.AirPressure h4{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.78px;
+  color: rgba(231, 231, 235, 1);  
+}
+.AirPressure p{
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 100px;
+  color: rgba(231, 231, 235, 1);  
+}
+.AirPressure span{
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42.26px;
+  color: rgba(231, 231, 235, 1);  
+}
+@media only screen and (max-width: 330px) {
+  .WeatherApp{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+  .Sidebar{
+    width: 100%;
+    height: 100vh;
+    padding: 1% 3% 3% 3%;
+    position: fixed;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(30, 33, 58, 1);
+    transition: transform 0.2s ease-in-out; 
+    transform: translateX(-100%);
+  }
+  .Sidebar.open {
+    transform: translateX(0);
+  }
+  .HeaderCloseDiv{
+    width: 100%;
+    padding-bottom: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .Aside{
+    width: 100%;
+    height: 100%;
+    padding-bottom: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .WeatherHeader{
+    width: 100%;
+    padding: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .WeatherHeaderSearchButton{
+    width: 45%;
+    height: 30px;
+    color: #ffffff;
+    font-size: 12px;
+    background: rgba(110, 112, 122, 1);
+    border-style: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+  .WeatherHeaderLocationButton{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: #ffffff;
+    border-style: none;
+    cursor: pointer;
+    background-color: rgba(110, 112, 122, 1);
+  }
+  .CloudDynamicImage{
+    width: 100%;
+    padding: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./weather-app-master/Cloud-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .CloudDynamicImage img{
+    width: 70%;
+  }
+  .TemperatureNumber{
+    font-size: 144px;
+    font-weight: 500;
+    line-height: 169.06px;
+    color: white;  
+  }
+  .CelciusFarenhite{
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 56.35px;
+    color: rgba(160, 159, 177, 1);
+  }
+  .CloudType{
+    padding: 17%;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    color: rgba(160, 159, 177, 1);
+  }
+  .Data{
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: center;
+    color: rgba(160, 159, 177, 1);
+  }
+  .LocationIcon{
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 64px;
+    text-align: center;  
+    color: rgba(160, 159, 177, 1);
+  }
+  .Article{
+    width: 100%;
+    height: 100%;
+    padding: 5% 10% 5% 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(16, 14, 29, 1);
+  }
+  .TemperatureHeader{
+    width: 100%;
+    padding-bottom: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .Celcius{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: rgba(17, 14, 60, 1);
+    background-color: #ffffff;
+    border-style: none;
+  }
+  .Farenhite{
+    width: 30px;
+    height: 30px;
+    margin-left: 2%;
+    border-radius: 15px;
+    cursor: pointer;
+    color: rgba(231, 231, 235, 1);
+    background-color: rgba(160, 159, 177, 1);
+    border-style: none;
+  }
+  .Container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .Wrapper{
+    width: 115px;
+    height: 150px;
+    margin-top: 10%;
+    padding: 2% 1% 1% 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .Wrapper img{
+    width: 50%;
+  }
+  .Wrapper h2{
+    padding-bottom: 3%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+    text-align: center;
+    color: rgba(231, 231, 235, 1);
+  }
+  .MaxMinTemperature{
+    width: 100%;
+    padding: 20% 5% 10% 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .MaxTemperature{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .MinTemperature{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    color: rgba(160, 159, 177, 1);  
+  }
+  .HighlightHeading{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .HighlightHeading h1{
+    padding-top: 5%;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 80px;
+    text-align: left;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .WindStatusHumidity{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .WindStatus{
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .WindStatus h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .WindStatus p{
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    color: rgba(231, 231, 235, 1);
+  }
+  .WindStatusMPH{
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.26px;
+  }
+  .WindStatusBottom{
+    width: 100%;
+    padding-left: 30%;
+    padding-right: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .WindStatusIcon{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.3);
+    rotate: 180deg;
+    border-radius: 15px;
+  }
+  .WindStatusBottom h5{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 43.5px;
+    text-align: left;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .Humidity{
+    width: 100%;
+    margin-top: 8%;
+    padding: 5% 5% 3% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .Humidity h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    text-align: center;
+   color: rgba(231, 231, 235, 1);  
+  }
+  .Humidity p{
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .Humidity p span{
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 42.26px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .HumidityPercentContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .HumidityPercentContainer ul{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+  .HumidityPercentContainer ul li{
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 24px;
+    color: rgba(160, 159, 177, 1);
+  }
+  .HumidityPercentBottom{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .HumidityPercentBottom p{
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(160, 159, 177, 1);  
+  }
+  .HumidityPercentRange{
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgba(231, 231, 235, 1);
+  }
+  .HumidityPercentRangeDiv{
+    height: 100%;
+    border-radius: 4px;
+    background-color: rgba(255, 236, 101, 1);
+  }
+  .VisibilityAirPressure{
+    width: 100%;
+    margin-top: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .Visibility{
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .Visibility h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .Visibility p{
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .Visibility span{
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.26px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .AirPressure{
+    width: 100%;
+    margin-top: 8%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(30, 33, 58, 1);
+  }
+  .AirPressure h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.78px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .AirPressure p{
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 80px;
+    color: rgba(231, 231, 235, 1);  
+  }
+  .AirPressure span{
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.26px;
+    color: rgba(231, 231, 235, 1);  
   }
 }
